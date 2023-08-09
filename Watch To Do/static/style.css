@@ -1,0 +1,72 @@
+body{
+    color: whitesmoke;
+    background-color: #0b090a;
+}
+.customNavbar{
+    background-color: #161a1d;
+}
+.movieButton {
+    background-color: transparent;
+    border: none;
+    width: 110%;
+}
+
+.btn{
+    color: whitesmoke;
+    background-color: #a4161a;
+    border: solid 1px #a4161a;
+}
+
+.btn:hover{
+    color: #a4161a;
+    background-color: transparent;
+    border: solid 1px #a4161a;
+}
+
+/* #search{
+    background-color: #161a1d;
+    color: whitesmoke;
+}
+
+#search::placeholder{
+    color: whitesmoke;
+} */
+
+#search:focus{
+    border-color: #a4161a;
+    box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.25);
+}
+.customTable{
+    border: #161a1d;
+    color: whitesmoke;
+}
+
+.page-link{
+    background-color: #212529;
+    color: white;
+    border: none;
+}
+.page-link:hover{
+    color: #a4161a
+}
+.active>.page-link{
+    background-color: #a4161a;
+}
+.active>.page-link:hover{
+    background-color: whitesmoke;
+}
+.disabled>.page-link{
+    background-color: #212529;
+}
+.header{
+    width: 100%;
+    margin-top: -48px;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.555),#0b090a),
+    url("https://images.thedirect.com/media/article_full/black-panther-wakanda-forever-poster-mcu-marvel.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.customTable thead tr{
+    background-color: #161a1d;
+}

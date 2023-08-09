@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Result
+{% endblock %}
+
+{% block search %}
+    active
+{% endblock %}
+
+{% block main %}
+
+<form action="/result" method="post" class="row g-3 justify-content-center">
+    <div class="col-3">
+        <input autocomplete="off" autofocus class="form-control mx-auto w-100" id="search" name="search" placeholder="Search for movies" type="text">
+    </div>
+    <div class="col-auto">
+        <button class="btn" type="submit">Search</button>
+    </div>
+</form> 
+    <div class="mt-5"><h5>Search result for "{{ text }}"</h5></div>
+    <div class="container mt-2">
+    <div class="row gx-5">
+        {% for i in mov%}
+        <div class="col-3">
+            <form action="/detail" method="post">
+                <button class="movieButton" type="submit">
+                    <input type="hidden" name="id" value="{{ i['id'] }}">
+                    <input type="hidden" name="media_type" value="{{ i['media_type'] }}">
+                    <img class="rounded mt-5 w-75 " src="https://image.tmdb.org/t/p/w500/{{ i['poster_path'] }}" alt="Full-Size Cover" onerror="this.onerror=null;this.src='{{ url_for("static", filename="placeholder.png") }}';">
+                    <h5 class="mt-3 mb-0 text-light">
+                        {% if i["title"] %}
+                            {{ i["title"] }}
+                        {% else: %}
+                            {{ i["name"] }}
+                        {% endif %}
+                    </h5>
+                    <p class="mt-1 text-light">
+                        {% if i["release_date"] %}
+                            {{ i["release_date"] }}
+                        {% else: %}
+                            {{ i["first_air_date"] }}
+                        {% endif %}
+                    </p>
+                </button>    
+            </form>           
+        </div>
+        {% endfor %}            
+    </div>
+    <nav aria-label="...">
+        <ul class="pagination justify-content-center mt-3">
+          <li class="page-item {% if page == 1 %} disabled {% endif %}">
+            <a class="page-link" href="?page={{ page - 1 }}&search={{ search }}">Previous</a>
+          </li>
+          <li class="page-item {% if page-1 <= 1 %} d-none {% endif %}">
+            <a class="page-link" href="?page={{ page - 2 }}&search={{ search }}">{{ page - 2}}</a>
+        </li>
+          <li class="page-item {% if page == 1 %} d-none {% endif %}">
+            <a class="page-link" href="?page={{ page - 1 }}&search={{ search }}">{{ page - 1}}</a>
+        </li>
+          <li class="page-item active" aria-current="page">
+            <a class="page-link" href="#">{{ page }}</a>
+          </li>
+          <li class="page-item {% if page == max_page %} d-none {% endif %}">
+            <a class="page-link" href="?page={{ page + 1 }}&search={{ search }}">{{ page + 1 }}</a>
+        </li>
+        <li class="page-item {% if page+1 >= max_page %} d-none {% endif %}">
+            <a class="page-link" href="?page={{ page + 2 }}&search={{ search }}">{{ page + 2 }}</a>
+        </li>
+          <li class="page-item {% if page == max_page %} disabled {% endif %}">
+            <a class="page-link" href="?page={{ page + 1 }}&search={{ search }}">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+{% endblock %}

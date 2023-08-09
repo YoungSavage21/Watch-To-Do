@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block search %}
+    active
+{% endblock %}
+
+{% block main %}
+
+    <form action="/result" method="post" class="row g-3 justify-content-center">
+        <div class="col-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-100" id="search" name="search" placeholder="Search for movies" type="text">
+        </div>
+        <div class="col-auto">
+            <button class="btn" type="submit">Search</button>
+        </div>
+    </form> 
+    <div class="mt-5 mb-3"><h2>Upcoming Movies</h2></div>
+    <div class="container mt-2">
+    <div class="row gx-5">
+        {% for i in upcoming %}
+        <div class="col-3 text-light">
+            <form action="/detail" method="post">
+                <button class="movieButton" type="submit">
+                    <input type="hidden" name="id" value="{{ i['id'] }}">
+                    <img class="rounded mt-5 w-75 " src="https://image.tmdb.org/t/p/w500/{{ i['poster_path'] }}" alt="Full-Size Cover" onerror="this.onerror=null;this.src='{{ url_for("static", filename="placeholder.png") }}';">
+                    <h5 class="mt-3 mb-0 text-light">{{ i["title"] }}</h5>
+                    <p class="mt-1 text-light">{{ i["release_date"] }}</p>
+                </button>    
+            </form>           
+        </div>
+        {% endfor %}            
+    </div>
+
+    <div class="mt-5 mb-3"><h2>Top Rated</h2></div>
+    <div class="container mt-2">
+    <div class="row gx-5">
+        {% for i in top %}
+        <div class="col-3">
+            <form action="/detail" method="post">
+                <button class="movieButton" type="submit">
+                    <input type="hidden" name="id" value="{{ i['id'] }}">
+                    <img class="rounded mt-5 w-75 " src="https://image.tmdb.org/t/p/w500/{{ i['poster_path'] }}" alt="Full-Size Cover" onerror="this.onerror=null;this.src='{{ url_for("static", filename="placeholder.png") }}';">
+                    <h5 class="mt-3 mb-0 text-light">{{ i["title"] }}</h5>
+                    <p class="mt-1 text-light">{{ i["release_date"] }}</p>
+                </button>    
+            </form>           
+        </div>
+        {% endfor %}            
+    </div>
+  
+
+{% endblock %}

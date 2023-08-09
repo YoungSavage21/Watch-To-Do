@@ -1,0 +1,102 @@
+{% extends "layout.html" %} {% block title %} Detail {% endblock %} {% block main %}
+<!-- <div class="container mt-5"><h5>Your Watchlist</h5></div> -->
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-6">
+      <img
+        class="rounded w-75"
+        src="https://image.tmdb.org/t/p/w500/{{ detail['poster_path'] }} "
+        onerror="this.onerror=null;this.src='{{ url_for('static', filename='placeholder.png') }}';"
+      />
+    </div>
+    <div class="col-6 text-start">
+      <h1>
+        {% if detail["title"] %}
+          {{ detail["title"] }}
+        {% else: %}
+            {{ detail["name"] }}
+        {% endif %}
+      </h1>
+      <h5>
+        {% if detail["release_date"] %}
+          {{ detail["release_date"] }}
+        {% else: %}
+            {{ detail["first_air_date"] }}
+        {% endif %}
+      </h5>
+      <p>
+        {% for genre in detail["genres"] %} {{genre["name"]}} {% if not
+        loop.last %} , {% endif %} {% endfor %}
+      </p>
+      <hr class="mt-3" />
+      <p class="mt-3">
+        {% if detail["overview"] %}
+          {{ detail["overview"] }}
+        {% else %}
+          No description
+        {% endif %}
+      </p>
+      <hr class="mt-4" />
+      <div class="row mt-3 text-center">
+        <table>
+          <thead>
+            <th>Popularity:</th>
+            <th>Vote Average:</th>
+            <th>Vote Count:</th>
+          </thead>
+          <tbody>
+            <td>{{ detail["popularity"] }}</td>
+            <td>{{ detail["vote_average"] }}</td>
+            <td>{{ detail["vote_count"] }}</td>
+          </tbody>
+        </table>
+      </div>
+      <hr class="mt-4" />
+
+      <div class="row mt-3 text-center">
+        <table class="text-center">
+          <thead>
+            <th>Production Companies:</th>
+            <th>Languages:</th>
+          </thead>
+          <tbody class="align-text-top">
+            <td class="w-50">
+              {% if detail["production_companies"] %}
+                {% for prod in detail["production_companies"]%}
+                    {{prod["name"]}}
+                    {% if not loop.last %} 
+                    ,
+                    {% endif %}
+                {% endfor %}
+              {% else %}
+                  Unknown
+              {% endif %} 
+
+            </td>
+            <td>
+              {% if detail["spoken_languages"] %}
+              {% for prod in detail["spoken_languages"]%}
+                  {{prod["english_name"]}}
+                  {% if not loop.last %} 
+                  ,
+                  {% endif %}
+              {% endfor %}
+              {% else %}
+                  Unknown
+              {% endif %} 
+            </td>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="row text-center mt-5">
+        <form action="/list" method="post">
+          <input type="hidden" name="id" value="{{ detail['id'] }}">
+          <button class="btn btn-primary w-50" type="submit">Add to List</button>   
+        </form> 
+      </div>
+      </div>
+    
+  </div>
+</div>
+{% endblock %}
